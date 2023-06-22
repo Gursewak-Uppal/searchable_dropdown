@@ -380,7 +380,7 @@ class _DropDown<T> extends StatelessWidget {
     final deviceHeight = context.deviceHeight;
     final dropdownGlobalPointBounds = controller.key.globalPaintBounds;
     final alertDialogMaxHeight = dropDownMaxHeight ?? deviceHeight * 0.35;
-    const dialogOffset = 35; //Dialog offset from dropdown
+    const dialogOffset = 0; //Dialog offset from dropdown
 
     final dropdownPositionFromBottom = dropdownGlobalPointBounds != null
         ? deviceHeight - dropdownGlobalPointBounds.bottom
