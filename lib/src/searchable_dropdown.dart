@@ -355,8 +355,13 @@ class _DropDown<T> extends StatelessWidget {
                 return CustomInkwell(
                   padding: EdgeInsets.zero,
                   onTap: () {
-                    controller.selectedItem.value = null;
-                    onChanged?.call(null);
+                    if (isEnabled) {
+          showDropdownDialog(context, controller);
+        } else {
+          disabledOnTap?.call();
+        }
+                    //controller.selectedItem.value = null;
+                    //onChanged?.call(null);
                   },
                   child: trailingClearIcon ??
                       const Icon(
