@@ -34,7 +34,8 @@ class SearchableDropdownController<T> {
 
   bool _hasMoreData = true;
   int _page = 1;
-set hasMoreData(bool hasMoreData)=>_hasMoreData=hasMoreData;
+  
+setHasMoreData(bool hasMoreData)=>_hasMoreData=hasMoreData;
 
   Future<void> getItemsWithPaginatedRequest({
     required int page,
