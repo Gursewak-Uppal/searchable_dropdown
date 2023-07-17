@@ -58,6 +58,11 @@ setHasMoreData(bool hasMoreData)=>_hasMoreData=hasMoreData;
   _page = _page + 1;
     status.value = SearchableDropdownStatus.loaded;
     debugPrint('searchable dropdown has more data: $_hasMoreData');
+    if(response.length<requestItemCount)
+    {
+    await Future.delayed(Duration(milliseconds: 100));
+      getItemsWithPaginatedRequest(_page);
+    }
   }
 
   Future<void> getItemsWithFutureRequest() async {
