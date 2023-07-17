@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:searchable_paginated_dropdown/src/extensions/extensions.dart';
 import 'package:searchable_paginated_dropdown/src/extensions/scroll_controller_extension.dart';
+import 'package:searchable_paginated_dropdown/src/model/paginated_request_response.dart';
 import 'package:searchable_paginated_dropdown/src/model/searchable_dropdown_menu_item.dart';
 
 // Enum must be before that class.
@@ -11,14 +12,11 @@ class SearchableDropdownController<T> {
   FocusNode searchFocusNode = FocusNode();
   GlobalKey key = GlobalKey();
   ScrollController scrollController = ScrollController();
-  final ValueNotifier<List<SearchableDropdownMenuItem<T>>?> paginatedItemList =
-      ValueNotifier<List<SearchableDropdownMenuItem<T>>?>(null);
-  final ValueNotifier<SearchableDropdownMenuItem<T>?> selectedItem =
-      ValueNotifier<SearchableDropdownMenuItem<T>?>(null);
-  final ValueNotifier<SearchableDropdownStatus> status =
-      ValueNotifier<SearchableDropdownStatus>(SearchableDropdownStatus.initial);
+  final ValueNotifier<List<SearchableDropdownMenuItem<T>>?> paginatedItemList = ValueNotifier<List<SearchableDropdownMenuItem<T>>?>(null);
+  final ValueNotifier<SearchableDropdownMenuItem<T>?> selectedItem = ValueNotifier<SearchableDropdownMenuItem<T>?>(null);
+  final ValueNotifier<SearchableDropdownStatus> status = ValueNotifier<SearchableDropdownStatus>(SearchableDropdownStatus.initial);
 
-  late Future<List<SearchableDropdownMenuItem<T>>?> Function(
+  late Future<PaginatedRequestResponse<T>?> Function(
     int page,
     String? key,
   )? paginatedRequest;
@@ -29,13 +27,10 @@ class SearchableDropdownController<T> {
   late List<SearchableDropdownMenuItem<T>>? items;
 
   String searchText = '';
-  ValueNotifier<List<SearchableDropdownMenuItem<T>>?> searchedItems =
-      ValueNotifier<List<SearchableDropdownMenuItem<T>>?>(null);
+  ValueNotifier<List<SearchableDropdownMenuItem<T>>?> searchedItems = ValueNotifier<List<SearchableDropdownMenuItem<T>>?>(null);
 
   bool _hasMoreData = true;
   int _page = 1;
-  
-setHasMoreData(bool hasMoreData)=>_hasMoreData=hasMoreData;
 
   Future<void> getItemsWithPaginatedRequest({
     required int page,
@@ -51,17 +46,16 @@ setHasMoreData(bool hasMoreData)=>_hasMoreData=hasMoreData;
     if (!_hasMoreData) return;
     status.value = SearchableDropdownStatus.busy;
     final response = await paginatedRequest!(page, key);
-    if (response is! List<SearchableDropdownMenuItem<T>>) return;
-
+    if (response==null) return;
+    _hasMoreData = response.hasMore;
     paginatedItemList.value ??= [];
-    paginatedItemList.value = paginatedItemList.value! + response;
-  _page = _page + 1;
+    paginatedItemList.value = paginatedItemList.value! + response.items;
+    _page = _page + 1;
     status.value = SearchableDropdownStatus.loaded;
     debugPrint('searchable dropdown has more data: $_hasMoreData');
-    if(response.length<requestItemCount)
-    {
-    await Future.delayed(Duration(milliseconds: 100));
-        getItemsWithPaginatedRequest(page: _page);
+    if ((response.hasMore) && (response.items.length) < requestItemCount) {
+      await Future.delayed(Duration(milliseconds: 100));
+      getItemsWithPaginatedRequest(page: _page);
     }
   }
 

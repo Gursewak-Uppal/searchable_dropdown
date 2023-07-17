@@ -57,12 +57,7 @@ class _MyAppState extends State<MyApp> {
                 paginatedRequest: (int page, String? searchKey) async {
                   final paginatedList =
                       await getAnimeList(page: page, key: searchKey);
-                  return paginatedList?.animeList
-                      ?.map((e) => SearchableDropdownMenuItem(
-                          value: e.malId,
-                          label: e.title ?? '',
-                          child: Text(e.title ?? '')))
-                      .toList();
+
                 },
                 requestItemCount: 25,
                 onChanged: (int? value) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:searchable_paginated_dropdown/searchable_paginated_dropdown.dart';
+import 'package:searchable_paginated_dropdown/src/model/paginated_request_response.dart';
 
 @immutable
 class SearchableDropdownFormField<T> extends FormField<T> {
@@ -51,7 +52,7 @@ class SearchableDropdownFormField<T> extends FormField<T> {
         );
 
   SearchableDropdownFormField.paginated({
-    required Future<List<SearchableDropdownMenuItem<T>>?> Function(
+    required Future<PaginatedRequestResponse<T>?> Function(
       int,
       String?,
     )?
@@ -282,7 +283,7 @@ class SearchableDropdownFormField<T> extends FormField<T> {
   final Future<List<SearchableDropdownMenuItem<T>>?> Function()? futureRequest;
 
   /// Paginated request service which is returns DropdownMenuItem list.
-  final Future<List<SearchableDropdownMenuItem<T>>?> Function(
+  final Future<PaginatedRequestResponse<T>?> Function(
     int page,
     String? searchKey,
   )? paginatedRequest;

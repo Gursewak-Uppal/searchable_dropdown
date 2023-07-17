@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:searchable_paginated_dropdown/src/extensions/extensions.dart';
+import 'package:searchable_paginated_dropdown/src/model/paginated_request_response.dart';
 import 'package:searchable_paginated_dropdown/src/model/searchable_dropdown_menu_item.dart';
 import 'package:searchable_paginated_dropdown/src/searchable_dropdown_controller.dart';
 import 'package:searchable_paginated_dropdown/src/utils/custom_inkwell.dart';
@@ -44,11 +45,10 @@ class SearchableDropdown<T> extends StatefulWidget {
           disabledOnTap: disabledOnTap,
           width: width,
           isDialogExpanded: isDialogExpanded,
-    hasMoreData:hasMoreData
         );
 
   const SearchableDropdown.paginated({
-    required Future<List<SearchableDropdownMenuItem<T>>?> Function(
+    required Future<PaginatedRequestResponse<T>?> Function(
       int,
       String?,
     )?
@@ -90,7 +90,6 @@ class SearchableDropdown<T> extends StatefulWidget {
           disabledOnTap: disabledOnTap,
           changeCompletionDelay: changeCompletionDelay,
           width: width,
-    hasMoreData:hasMoreData,
           isDialogExpanded: isDialogExpanded,
         );
 
@@ -132,7 +131,6 @@ class SearchableDropdown<T> extends StatefulWidget {
           disabledOnTap: disabledOnTap,
           changeCompletionDelay: changeCompletionDelay,
           width: width,
-    hasMoreData:hasMoreData,
           isDialogExpanded: isDialogExpanded,
         );
 
@@ -158,7 +156,6 @@ class SearchableDropdown<T> extends StatefulWidget {
     this.changeCompletionDelay,
     this.width,
     this.isDialogExpanded = false,
-        this.hasMoreData=false
 
   });
 
@@ -168,7 +165,6 @@ class SearchableDropdown<T> extends StatefulWidget {
   //If its true dialog will be expanded all width of screen, otherwise dialog will be same size of dropdown.
   final bool isDialogExpanded;
 
-  final bool hasMoreData;
 
 
   /// Height of dropdown's dialog, default: context.deviceHeight*0.3.
@@ -186,7 +182,7 @@ class SearchableDropdown<T> extends StatefulWidget {
   final Future<List<SearchableDropdownMenuItem<T>>?> Function()? futureRequest;
 
   /// Paginated request service which is returns DropdownMenuItem list.
-  final Future<List<SearchableDropdownMenuItem<T>>?> Function(
+  final Future<PaginatedRequestResponse<T>?> Function(
     int page,
     String? searchKey,
   )? paginatedRequest;
@@ -254,13 +250,6 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
   }
 
   @override
-  void didUpdateWidget(oldWidget) {
-    controller.setHasMoreData(widget.hasMoreData);
-    
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
   Widget build(BuildContext context) {
     final dropdownWidget = _DropDown(
       controller: controller,
@@ -316,7 +305,7 @@ class _DropDown<T> extends StatelessWidget {
   final Duration? changeCompletionDelay;
   final EdgeInsetsGeometry? margin;
   final Future<List<SearchableDropdownMenuItem<T>>?> Function()? futureRequest;
-  final Future<List<SearchableDropdownMenuItem<T>>?> Function(
+  final Future<PaginatedRequestResponse<T>?> Function(
     int page,
     String? searchKey,
   )? paginatedRequest;
@@ -519,7 +508,7 @@ class _DropDownCard<T> extends StatelessWidget {
 
   final bool isReversed;
   final Duration? changeCompletionDelay;
-  final Future<List<SearchableDropdownMenuItem<T>>?> Function(
+  final Future<PaginatedRequestResponse<T>?> Function(
     int page,
     String? searchKey,
   )? paginatedRequest;
@@ -619,7 +608,7 @@ class _DropDownListView<T> extends StatelessWidget {
   });
 
   final bool isReversed;
-  final Future<List<SearchableDropdownMenuItem<T>>?> Function(
+  final Future<PaginatedRequestResponse<T>?> Function(
     int page,
     String? searchKey,
   )? paginatedRequest;
