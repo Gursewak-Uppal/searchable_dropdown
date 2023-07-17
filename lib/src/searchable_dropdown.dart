@@ -254,7 +254,7 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
   }
 
   @override
-  void didUpdateWidget(covariant SearchableDropdown oldWidget) {
+  void didUpdateWidget(oldWidget) {
     controller.setHasMoreData(widget.hasMoreData);
     
     super.didUpdateWidget(oldWidget);
