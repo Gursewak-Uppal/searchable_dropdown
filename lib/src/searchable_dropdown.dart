@@ -25,6 +25,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     VoidCallback? disabledOnTap,
     double? width,
     bool isDialogExpanded = true,
+    this.hasMoreData=false
   }) : this._(
           key: key,
           hintText: hintText,
@@ -68,6 +69,8 @@ class SearchableDropdown<T> extends StatefulWidget {
     Duration? changeCompletionDelay,
     double? width,
     bool isDialogExpanded = true,
+        this.hasMoreData=false
+
   }) : this._(
           key: key,
           paginatedRequest: paginatedRequest,
@@ -108,6 +111,8 @@ class SearchableDropdown<T> extends StatefulWidget {
     Duration? changeCompletionDelay,
     double? width,
     bool isDialogExpanded = true,
+        this.hasMoreData=false
+
   }) : this._(
           futureRequest: futureRequest,
           key: key,
@@ -150,6 +155,8 @@ class SearchableDropdown<T> extends StatefulWidget {
     this.changeCompletionDelay,
     this.width,
     this.isDialogExpanded = false,
+        this.hasMoreData=false
+
   });
 
   //Is dropdown enabled
@@ -157,6 +164,9 @@ class SearchableDropdown<T> extends StatefulWidget {
 
   //If its true dialog will be expanded all width of screen, otherwise dialog will be same size of dropdown.
   final bool isDialogExpanded;
+
+  final bool hasMoreData;
+
 
   /// Height of dropdown's dialog, default: context.deviceHeight*0.3.
   final double? dropDownMaxHeight;
@@ -238,6 +248,13 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
     }
     controller.initialize();
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant SearchableDropdown oldWidget) {
+    controller.hasMoreData(widget.hasMoreData);
+    
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
