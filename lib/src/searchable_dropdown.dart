@@ -25,7 +25,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     VoidCallback? disabledOnTap,
     double? width,
     bool isDialogExpanded = true,
-    this.hasMoreData=false
+    bool hasMoreData=false
   }) : this._(
           key: key,
           hintText: hintText,
@@ -44,6 +44,7 @@ class SearchableDropdown<T> extends StatefulWidget {
           disabledOnTap: disabledOnTap,
           width: width,
           isDialogExpanded: isDialogExpanded,
+    hasMoreData:hasMoreData
         );
 
   const SearchableDropdown.paginated({
@@ -69,7 +70,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     Duration? changeCompletionDelay,
     double? width,
     bool isDialogExpanded = true,
-        this.hasMoreData=false
+     bool hasMoreData=false
 
   }) : this._(
           key: key,
@@ -89,6 +90,7 @@ class SearchableDropdown<T> extends StatefulWidget {
           disabledOnTap: disabledOnTap,
           changeCompletionDelay: changeCompletionDelay,
           width: width,
+    hasMoreData:hasMoreData,
           isDialogExpanded: isDialogExpanded,
         );
 
@@ -111,7 +113,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     Duration? changeCompletionDelay,
     double? width,
     bool isDialogExpanded = true,
-        this.hasMoreData=false
+     bool hasMoreData=false
 
   }) : this._(
           futureRequest: futureRequest,
@@ -130,6 +132,7 @@ class SearchableDropdown<T> extends StatefulWidget {
           disabledOnTap: disabledOnTap,
           changeCompletionDelay: changeCompletionDelay,
           width: width,
+    hasMoreData:hasMoreData,
           isDialogExpanded: isDialogExpanded,
         );
 
