@@ -54,11 +54,7 @@ set hasMoreData(bool hasMoreData)=>_hasMoreData=hasMoreData;
 
     paginatedItemList.value ??= [];
     paginatedItemList.value = paginatedItemList.value! + response;
-    if (response.length < requestItemCount) {
-      _hasMoreData = false;
-    } else {
-      _page = _page + 1;
-    }
+  _page = _page + 1;
     status.value = SearchableDropdownStatus.loaded;
     debugPrint('searchable dropdown has more data: $_hasMoreData');
   }
