@@ -250,6 +250,13 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
   }
 
   @override
+  void didUpdateWidget(covariant SearchableDropdown<T> oldWidget) {
+    controller
+      ..paginatedRequest = widget.paginatedRequest;
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final dropdownWidget = _DropDown(
       controller: controller,
