@@ -456,9 +456,11 @@ class _DropDown<T> extends StatelessWidget {
             crossAxisAlignment:
                 isDialogExpanded ? CrossAxisAlignment.center : CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: alertDialogMaxHeight,
-                width: isDialogExpanded ? null : dropdownGlobalPointBounds?.width,
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: alertDialogMaxHeight,
+                  maxWidth: isDialogExpanded ? double.infinity : dropdownGlobalPointBounds?.width??double.infinity
+                ),
                 child: _DropDownCard(
                   controller: controller,
                   isReversed: isReversed,
