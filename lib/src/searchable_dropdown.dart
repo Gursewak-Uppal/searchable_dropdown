@@ -543,6 +543,7 @@ class _DropDownCard<T> extends StatelessWidget {
           child: Container(
             margin: EdgeInsets.zero,
             decoration: BoxDecoration(
+              color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               boxShadow: [
                 BoxShadow(color: Colors.grey,blurRadius: 6)
