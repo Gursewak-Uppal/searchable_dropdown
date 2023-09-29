@@ -540,10 +540,13 @@ class _DropDownCard<T> extends StatelessWidget {
       mainAxisAlignment: isReversed ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Flexible(
-          child: Card(
+          child: Container(
             margin: EdgeInsets.zero,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(color: Colors.grey,blurRadius: 6)
+              ],
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 4),
