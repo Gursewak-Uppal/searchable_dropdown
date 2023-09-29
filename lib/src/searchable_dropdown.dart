@@ -26,7 +26,8 @@ class SearchableDropdown<T> extends StatefulWidget {
     VoidCallback? disabledOnTap,
     double? width,
     bool isDialogExpanded = true,
-    bool hasMoreData=false
+    bool hasMoreData=false,
+    Widget Function(T data)? buildDropDownText
   }) : this._(
           key: key,
           hintText: hintText,
@@ -45,6 +46,7 @@ class SearchableDropdown<T> extends StatefulWidget {
           disabledOnTap: disabledOnTap,
           width: width,
           isDialogExpanded: isDialogExpanded,
+    buildDropDownText: buildDropDownText
         );
 
   const SearchableDropdown.paginated({
@@ -70,7 +72,8 @@ class SearchableDropdown<T> extends StatefulWidget {
     Duration? changeCompletionDelay,
     double? width,
     bool isDialogExpanded = true,
-     bool hasMoreData=false
+     bool hasMoreData=false,
+    Widget Function(T data)? buildDropDownText
 
   }) : this._(
           key: key,
@@ -91,6 +94,7 @@ class SearchableDropdown<T> extends StatefulWidget {
           changeCompletionDelay: changeCompletionDelay,
           width: width,
           isDialogExpanded: isDialogExpanded,
+    buildDropDownText: buildDropDownText
         );
 
   const SearchableDropdown.future({
@@ -112,7 +116,8 @@ class SearchableDropdown<T> extends StatefulWidget {
     Duration? changeCompletionDelay,
     double? width,
     bool isDialogExpanded = true,
-     bool hasMoreData=false
+     bool hasMoreData=false,
+    Widget Function(T data)? buildDropDownText
 
   }) : this._(
           futureRequest: futureRequest,
@@ -132,6 +137,7 @@ class SearchableDropdown<T> extends StatefulWidget {
           changeCompletionDelay: changeCompletionDelay,
           width: width,
           isDialogExpanded: isDialogExpanded,
+    buildDropDownText: buildDropDownText
         );
 
   const SearchableDropdown._({
@@ -156,6 +162,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     this.changeCompletionDelay,
     this.width,
     this.isDialogExpanded = false,
+    this.buildDropDownText
 
   });
 
@@ -223,6 +230,8 @@ class SearchableDropdown<T> extends StatefulWidget {
   /// Background decoration of dropdown, i.e. with this you can wrap dropdown with Card.
   final Widget Function(Widget child)? backgroundDecoration;
 
+  final Widget Function(T data)? buildDropDownText;
+
   @override
   State<SearchableDropdown<T>> createState() => _SearchableDropdownState<T>();
 }
@@ -238,7 +247,8 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
       ..futureRequest = widget.futureRequest
       ..requestItemCount = widget.requestItemCount ?? 0
       ..items = widget.items
-      ..searchedItems.value = widget.items;
+      ..searchedItems.value = widget.items
+    ..buildDropDownText=widget.buildDropDownText;
     for (final element in widget.items ?? <SearchableDropdownMenuItem<T>>[]) {
       if (element.value == widget.value) {
         controller.selectedItem.value = element;
@@ -252,7 +262,8 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
   @override
   void didUpdateWidget(covariant SearchableDropdown<T> oldWidget) {
     controller
-      ..paginatedRequest = widget.paginatedRequest;
+      ..paginatedRequest = widget.paginatedRequest
+      ..buildDropDownText=widget.buildDropDownText;
     super.didUpdateWidget(oldWidget);
   }
 
@@ -488,16 +499,21 @@ class _DropDownText<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: controller.selectedItem,
-      builder: (context, SearchableDropdownMenuItem<T>? selectedItem, child) =>
-          selectedItem?.child ??
-          (selectedItem?.label != null
-              ? Text(
-                  selectedItem!.label,
-                  maxLines: 1,
-                  overflow: TextOverflow.fade,
-                )
-              : hintText) ??
-          const SizedBox.shrink(),
+      builder: (context, SearchableDropdownMenuItem<T>? selectedItem, child)
+      {
+        if(controller.buildDropDownText!=null&&selectedItem?.value!=null){
+          return controller.buildDropDownText!(selectedItem!.value!);
+        }
+        return selectedItem?.child ??
+            (selectedItem?.label != null
+                ? Text(
+                    selectedItem!.label,
+                    maxLines: 1,
+                    overflow: TextOverflow.fade,
+                  )
+                : hintText) ??
+            const SizedBox.shrink();
+      },
     );
   }
 }

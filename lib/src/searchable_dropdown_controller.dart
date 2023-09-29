@@ -20,6 +20,9 @@ class SearchableDropdownController<T> {
     int page,
     String? key,
   )? paginatedRequest;
+
+  Widget Function(T data)? buildDropDownText;
+
   late Future<List<SearchableDropdownMenuItem<T>>?> Function()? futureRequest;
 
   late int requestItemCount;
