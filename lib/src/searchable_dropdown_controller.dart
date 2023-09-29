@@ -21,6 +21,8 @@ class SearchableDropdownController<T> {
     String? key,
   )? paginatedRequest;
 
+   T? selectedValue;
+
   Widget Function(T data)? buildDropDownText;
 
   late Future<List<SearchableDropdownMenuItem<T>>?> Function()? futureRequest;

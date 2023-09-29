@@ -8,171 +8,167 @@ import 'package:searchable_paginated_dropdown/src/utils/custom_inkwell.dart';
 import 'package:searchable_paginated_dropdown/src/utils/custom_search_bar.dart';
 
 class SearchableDropdown<T> extends StatefulWidget {
-  const SearchableDropdown({
-    Key? key,
-    Widget? hintText,
-    Widget Function(Widget)? backgroundDecoration,
-    String? searchHintText,
-    Widget? noRecordText,
-    double? dropDownMaxHeight,
-    EdgeInsetsGeometry? margin,
-    Widget? trailingIcon,
-    Widget? trailingClearIcon,
-    Widget? leadingIcon,
-    void Function(T?)? onChanged,
-    List<SearchableDropdownMenuItem<T>>? items,
-    T? value,
-    bool isEnabled = true,
-    VoidCallback? disabledOnTap,
-    double? width,
-    bool isDialogExpanded = true,
-    bool hasMoreData=false,
-    Widget Function(T data)? buildDropDownText
-  }) : this._(
-          key: key,
-          hintText: hintText,
-          backgroundDecoration: backgroundDecoration,
-          searchHintText: searchHintText,
-          noRecordText: noRecordText,
-          dropDownMaxHeight: dropDownMaxHeight,
-          margin: margin,
-          trailingIcon: trailingIcon,
-          trailingClearIcon: trailingClearIcon,
-          leadingIcon: leadingIcon,
-          onChanged: onChanged,
-          items: items,
-          value: value,
-          isEnabled: isEnabled,
-          disabledOnTap: disabledOnTap,
-          width: width,
-          isDialogExpanded: isDialogExpanded,
-    buildDropDownText: buildDropDownText
-        );
+  const SearchableDropdown(
+      {Key? key,
+      Widget? hintText,
+      Widget Function(Widget)? backgroundDecoration,
+      String? searchHintText,
+      Widget? noRecordText,
+      double? dropDownMaxHeight,
+      EdgeInsetsGeometry? margin,
+      Widget? trailingIcon,
+      Widget? trailingClearIcon,
+      Widget? leadingIcon,
+      void Function(T?)? onChanged,
+      List<SearchableDropdownMenuItem<T>>? items,
+      T? value,
+      bool isEnabled = true,
+      VoidCallback? disabledOnTap,
+      double? width,
+      bool isDialogExpanded = true,
+      bool hasMoreData = false,
+      Widget Function(T data)? buildDropDownText,
+      T? selectedValue})
+      : this._(
+            key: key,
+            hintText: hintText,
+            backgroundDecoration: backgroundDecoration,
+            searchHintText: searchHintText,
+            noRecordText: noRecordText,
+            dropDownMaxHeight: dropDownMaxHeight,
+            margin: margin,
+            trailingIcon: trailingIcon,
+            trailingClearIcon: trailingClearIcon,
+            leadingIcon: leadingIcon,
+            onChanged: onChanged,
+            items: items,
+            value: value,
+            isEnabled: isEnabled,
+            disabledOnTap: disabledOnTap,
+            width: width,
+            isDialogExpanded: isDialogExpanded,
+            buildDropDownText: buildDropDownText,
+            selectedValue: selectedValue);
 
-  const SearchableDropdown.paginated({
-    required Future<PaginatedRequestResponse<T>?> Function(
-      int,
-      String?,
-    )?
-        paginatedRequest,
-    int? requestItemCount,
-    Key? key,
-    Widget? hintText,
-    Widget Function(Widget)? backgroundDecoration,
-    String? searchHintText,
-    Widget? noRecordText,
-    double? dropDownMaxHeight,
-    EdgeInsetsGeometry? margin,
-    Widget? trailingIcon,
-    Widget? trailingClearIcon,
-    Widget? leadingIcon,
-    void Function(T?)? onChanged,
-    bool isEnabled = true,
-    VoidCallback? disabledOnTap,
-    Duration? changeCompletionDelay,
-    double? width,
-    bool isDialogExpanded = true,
-     bool hasMoreData=false,
-    Widget Function(T data)? buildDropDownText
+  const SearchableDropdown.paginated(
+      {required Future<PaginatedRequestResponse<T>?> Function(
+        int,
+        String?,
+      )? paginatedRequest,
+      int? requestItemCount,
+      Key? key,
+      Widget? hintText,
+      Widget Function(Widget)? backgroundDecoration,
+      String? searchHintText,
+      Widget? noRecordText,
+      double? dropDownMaxHeight,
+      EdgeInsetsGeometry? margin,
+      Widget? trailingIcon,
+      Widget? trailingClearIcon,
+      Widget? leadingIcon,
+      void Function(T?)? onChanged,
+      bool isEnabled = true,
+      VoidCallback? disabledOnTap,
+      Duration? changeCompletionDelay,
+      double? width,
+      bool isDialogExpanded = true,
+      bool hasMoreData = false,
+      Widget Function(T data)? buildDropDownText,
+      T? selectedValue})
+      : this._(
+            key: key,
+            paginatedRequest: paginatedRequest,
+            requestItemCount: requestItemCount,
+            hintText: hintText,
+            backgroundDecoration: backgroundDecoration,
+            searchHintText: searchHintText,
+            noRecordText: noRecordText,
+            dropDownMaxHeight: dropDownMaxHeight,
+            margin: margin,
+            trailingIcon: trailingIcon,
+            trailingClearIcon: trailingClearIcon,
+            leadingIcon: leadingIcon,
+            onChanged: onChanged,
+            isEnabled: isEnabled,
+            disabledOnTap: disabledOnTap,
+            changeCompletionDelay: changeCompletionDelay,
+            width: width,
+            isDialogExpanded: isDialogExpanded,
+            buildDropDownText: buildDropDownText,
+            selectedValue: selectedValue);
 
-  }) : this._(
-          key: key,
-          paginatedRequest: paginatedRequest,
-          requestItemCount: requestItemCount,
-          hintText: hintText,
-          backgroundDecoration: backgroundDecoration,
-          searchHintText: searchHintText,
-          noRecordText: noRecordText,
-          dropDownMaxHeight: dropDownMaxHeight,
-          margin: margin,
-          trailingIcon: trailingIcon,
-          trailingClearIcon: trailingClearIcon,
-          leadingIcon: leadingIcon,
-          onChanged: onChanged,
-          isEnabled: isEnabled,
-          disabledOnTap: disabledOnTap,
-          changeCompletionDelay: changeCompletionDelay,
-          width: width,
-          isDialogExpanded: isDialogExpanded,
-    buildDropDownText: buildDropDownText
-        );
+  const SearchableDropdown.future(
+      {required Future<List<SearchableDropdownMenuItem<T>>?> Function()? futureRequest,
+      Key? key,
+      Widget? hintText,
+      Widget Function(Widget)? backgroundDecoration,
+      String? searchHintText,
+      Widget? noRecordText,
+      double? dropDownMaxHeight,
+      EdgeInsetsGeometry? margin,
+      Widget? trailingIcon,
+      Widget? trailingClearIcon,
+      Widget? leadingIcon,
+      void Function(T?)? onChanged,
+      bool isEnabled = true,
+      VoidCallback? disabledOnTap,
+      Duration? changeCompletionDelay,
+      double? width,
+      bool isDialogExpanded = true,
+      bool hasMoreData = false,
+      Widget Function(T data)? buildDropDownText,
+      T? selectedValue})
+      : this._(
+            futureRequest: futureRequest,
+            key: key,
+            hintText: hintText,
+            backgroundDecoration: backgroundDecoration,
+            searchHintText: searchHintText,
+            noRecordText: noRecordText,
+            dropDownMaxHeight: dropDownMaxHeight,
+            margin: margin,
+            trailingIcon: trailingIcon,
+            trailingClearIcon: trailingClearIcon,
+            leadingIcon: leadingIcon,
+            onChanged: onChanged,
+            isEnabled: isEnabled,
+            disabledOnTap: disabledOnTap,
+            changeCompletionDelay: changeCompletionDelay,
+            width: width,
+            isDialogExpanded: isDialogExpanded,
+            buildDropDownText: buildDropDownText,
+            selectedValue: selectedValue);
 
-  const SearchableDropdown.future({
-    required Future<List<SearchableDropdownMenuItem<T>>?> Function()?
-        futureRequest,
-    Key? key,
-    Widget? hintText,
-    Widget Function(Widget)? backgroundDecoration,
-    String? searchHintText,
-    Widget? noRecordText,
-    double? dropDownMaxHeight,
-    EdgeInsetsGeometry? margin,
-    Widget? trailingIcon,
-    Widget? trailingClearIcon,
-    Widget? leadingIcon,
-    void Function(T?)? onChanged,
-    bool isEnabled = true,
-    VoidCallback? disabledOnTap,
-    Duration? changeCompletionDelay,
-    double? width,
-    bool isDialogExpanded = true,
-     bool hasMoreData=false,
-    Widget Function(T data)? buildDropDownText
-
-  }) : this._(
-          futureRequest: futureRequest,
-          key: key,
-          hintText: hintText,
-          backgroundDecoration: backgroundDecoration,
-          searchHintText: searchHintText,
-          noRecordText: noRecordText,
-          dropDownMaxHeight: dropDownMaxHeight,
-          margin: margin,
-          trailingIcon: trailingIcon,
-          trailingClearIcon: trailingClearIcon,
-          leadingIcon: leadingIcon,
-          onChanged: onChanged,
-          isEnabled: isEnabled,
-          disabledOnTap: disabledOnTap,
-          changeCompletionDelay: changeCompletionDelay,
-          width: width,
-          isDialogExpanded: isDialogExpanded,
-    buildDropDownText: buildDropDownText
-        );
-
-  const SearchableDropdown._({
-    super.key,
-    this.hintText,
-    this.backgroundDecoration,
-    this.searchHintText,
-    this.noRecordText,
-    this.dropDownMaxHeight,
-    this.margin,
-    this.trailingIcon,
-    this.trailingClearIcon,
-    this.leadingIcon,
-    this.onChanged,
-    this.items,
-    this.value,
-    this.isEnabled = true,
-    this.disabledOnTap,
-    this.futureRequest,
-    this.paginatedRequest,
-    this.requestItemCount,
-    this.changeCompletionDelay,
-    this.width,
-    this.isDialogExpanded = false,
-    this.buildDropDownText
-
-  });
+  const SearchableDropdown._(
+      {super.key,
+      this.hintText,
+      this.backgroundDecoration,
+      this.searchHintText,
+      this.noRecordText,
+      this.dropDownMaxHeight,
+      this.margin,
+      this.trailingIcon,
+      this.trailingClearIcon,
+      this.leadingIcon,
+      this.onChanged,
+      this.items,
+      this.value,
+      this.isEnabled = true,
+      this.disabledOnTap,
+      this.futureRequest,
+      this.paginatedRequest,
+      this.requestItemCount,
+      this.changeCompletionDelay,
+      this.width,
+      this.isDialogExpanded = false,
+      this.buildDropDownText,
+      this.selectedValue});
 
   //Is dropdown enabled
   final bool isEnabled;
 
   //If its true dialog will be expanded all width of screen, otherwise dialog will be same size of dropdown.
   final bool isDialogExpanded;
-
-
 
   /// Height of dropdown's dialog, default: context.deviceHeight*0.3.
   final double? dropDownMaxHeight;
@@ -231,14 +227,14 @@ class SearchableDropdown<T> extends StatefulWidget {
   final Widget Function(Widget child)? backgroundDecoration;
 
   final Widget Function(T data)? buildDropDownText;
+  final T? selectedValue;
 
   @override
   State<SearchableDropdown<T>> createState() => _SearchableDropdownState<T>();
 }
 
 class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
-  final SearchableDropdownController<T> controller =
-      SearchableDropdownController<T>();
+  final SearchableDropdownController<T> controller = SearchableDropdownController<T>();
 
   @override
   void initState() {
@@ -248,7 +244,8 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
       ..requestItemCount = widget.requestItemCount ?? 0
       ..items = widget.items
       ..searchedItems.value = widget.items
-    ..buildDropDownText=widget.buildDropDownText;
+      ..buildDropDownText = widget.buildDropDownText
+      ..selectedValue = widget.selectedValue;
     for (final element in widget.items ?? <SearchableDropdownMenuItem<T>>[]) {
       if (element.value == widget.value) {
         controller.selectedItem.value = element;
@@ -263,7 +260,8 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
   void didUpdateWidget(covariant SearchableDropdown<T> oldWidget) {
     controller
       ..paginatedRequest = widget.paginatedRequest
-      ..buildDropDownText=widget.buildDropDownText;
+      ..buildDropDownText = widget.buildDropDownText
+      ..selectedValue = widget.selectedValue;
     super.didUpdateWidget(oldWidget);
   }
 
@@ -291,8 +289,7 @@ class _SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
     return SizedBox(
       key: controller.key,
       width: widget.width ?? MediaQuery.of(context).size.width,
-      child:
-          widget.backgroundDecoration?.call(dropdownWidget) ?? dropdownWidget,
+      child: widget.backgroundDecoration?.call(dropdownWidget) ?? dropdownWidget,
     );
   }
 }
@@ -372,7 +369,8 @@ class _DropDown<T> extends StatelessWidget {
             ValueListenableBuilder(
               valueListenable: controller.selectedItem,
               builder: (context, value, child) {
-                if (value == null) {
+                if (value == null &&
+                    (controller.buildDropDownText != null && controller.selectedValue == null)) {
                   return trailingIcon ??
                       const Icon(
                         Icons.keyboard_arrow_down_rounded,
@@ -383,10 +381,10 @@ class _DropDown<T> extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   onTap: () {
                     if (isEnabled) {
-          showDropdownDialog(context, controller);
-        } else {
-          disabledOnTap?.call();
-        }
+                      showDropdownDialog(context, controller);
+                    } else {
+                      disabledOnTap?.call();
+                    }
                     //controller.selectedItem.value = null;
                     //onChanged?.call(null);
                   },
@@ -414,9 +412,8 @@ class _DropDown<T> extends StatelessWidget {
     final alertDialogMaxHeight = dropDownMaxHeight ?? deviceHeight * 0.35;
     const dialogOffset = 0; //Dialog offset from dropdown
 
-    final dropdownPositionFromBottom = dropdownGlobalPointBounds != null
-        ? deviceHeight - dropdownGlobalPointBounds.bottom
-        : null;
+    final dropdownPositionFromBottom =
+        dropdownGlobalPointBounds != null ? deviceHeight - dropdownGlobalPointBounds.bottom : null;
     var dialogPositionFromBottom = dropdownPositionFromBottom != null
         ? dropdownPositionFromBottom - alertDialogMaxHeight
         : null;
@@ -425,8 +422,7 @@ class _DropDown<T> extends StatelessWidget {
       if (dialogPositionFromBottom <= 0) {
         isReversed = true;
         final dropdownHeight = dropdownGlobalPointBounds?.height ?? 54;
-        dialogPositionFromBottom +=
-            alertDialogMaxHeight + dropdownHeight - dialogOffset;
+        dialogPositionFromBottom += alertDialogMaxHeight + dropdownHeight - dialogOffset;
       } else {
         dialogPositionFromBottom -= dialogOffset;
       }
@@ -446,10 +442,8 @@ class _DropDown<T> extends StatelessWidget {
         var reCalculatePosition = dialogPositionFromBottom;
         final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
         //If keyboard pushes the dialog, recalculate the dialog's position.
-        if (reCalculatePosition != null &&
-            reCalculatePosition <= keyboardHeight) {
-          reCalculatePosition =
-              (keyboardHeight - reCalculatePosition) + reCalculatePosition;
+        if (reCalculatePosition != null && reCalculatePosition <= keyboardHeight) {
+          reCalculatePosition = (keyboardHeight - reCalculatePosition) + reCalculatePosition;
         }
         return Padding(
           padding: EdgeInsets.only(
@@ -459,14 +453,12 @@ class _DropDown<T> extends StatelessWidget {
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: isDialogExpanded
-                ? CrossAxisAlignment.center
-                : CrossAxisAlignment.start,
+            crossAxisAlignment:
+                isDialogExpanded ? CrossAxisAlignment.center : CrossAxisAlignment.start,
             children: [
               SizedBox(
                 height: alertDialogMaxHeight,
-                width:
-                    isDialogExpanded ? null : dropdownGlobalPointBounds?.width,
+                width: isDialogExpanded ? null : dropdownGlobalPointBounds?.width,
                 child: _DropDownCard(
                   controller: controller,
                   isReversed: isReversed,
@@ -497,11 +489,13 @@ class _DropDownText<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (controller.buildDropDownText != null && controller.selectedValue != null) {
+      return controller.buildDropDownText!(controller.selectedValue!);
+    }
     return ValueListenableBuilder(
       valueListenable: controller.selectedItem,
-      builder: (context, SearchableDropdownMenuItem<T>? selectedItem, child)
-      {
-        if(controller.buildDropDownText!=null&&selectedItem?.value!=null){
+      builder: (context, SearchableDropdownMenuItem<T>? selectedItem, child) {
+        if (controller.buildDropDownText != null && selectedItem?.value != null) {
           return controller.buildDropDownText!(selectedItem!.value!);
         }
         return selectedItem?.child ??
@@ -543,8 +537,7 @@ class _DropDownCard<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment:
-          isReversed ? MainAxisAlignment.end : MainAxisAlignment.start,
+      mainAxisAlignment: isReversed ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Flexible(
           child: Card(
@@ -556,8 +549,7 @@ class _DropDownCard<T> extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 4),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                verticalDirection:
-                    isReversed ? VerticalDirection.up : VerticalDirection.down,
+                verticalDirection: isReversed ? VerticalDirection.up : VerticalDirection.down,
                 children: [
                   _DropDownSearchBar(
                     controller: controller,
@@ -589,6 +581,7 @@ class _DropDownSearchBar<T> extends StatelessWidget {
     this.searchHintText,
     this.changeCompletionDelay,
   });
+
   final Duration? changeCompletionDelay;
   final SearchableDropdownController<T> controller;
   final String? searchHintText;
@@ -599,8 +592,7 @@ class _DropDownSearchBar<T> extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: CustomSearchBar(
         focusNode: controller.searchFocusNode,
-        changeCompletionDelay:
-            changeCompletionDelay ?? const Duration(milliseconds: 200),
+        changeCompletionDelay: changeCompletionDelay ?? const Duration(milliseconds: 200),
         hintText: searchHintText ?? 'Search',
         isOutlined: true,
         leadingIcon: const Icon(Icons.search, size: 24),
@@ -642,9 +634,8 @@ class _DropDownListView<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: paginatedRequest != null
-          ? controller.paginatedItemList
-          : controller.searchedItems,
+      valueListenable:
+          paginatedRequest != null ? controller.paginatedItemList : controller.searchedItems,
       builder: (
         context,
         List<SearchableDropdownMenuItem<T>>? itemList,
@@ -689,8 +680,7 @@ class _DropDownListView<T> extends StatelessWidget {
                                 ) {
                                   if (state == SearchableDropdownStatus.busy) {
                                     return const Center(
-                                      child:
-                                          CircularProgressIndicator.adaptive(),
+                                      child: CircularProgressIndicator.adaptive(),
                                     );
                                   }
                                   return const SizedBox.shrink();
